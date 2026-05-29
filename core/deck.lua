@@ -5,12 +5,14 @@ local function fileExists(file)
 end
 
 
-
 function LoadDeck(deck, file)
-  if not fileExists(file) then return {} end
+  if not fileExists(file) then
+		print('this deck do not exists')
+		return {}
+	end
 
   while not #deck == 0 do
-		table.remove(deck[0])
+		table.remove(deck[1])
   end
 
   for card in io.lines(file) do

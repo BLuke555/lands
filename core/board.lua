@@ -25,6 +25,7 @@ Player = {
 	},
 
 	deck = {
+		cards = {},
 		pos = { x = BattleFieldWidth + Padding*2, y = Padding*3 + HandHeight + BattleFieldHeight },
 		width = GraveyardWidht,
 		height = GraveyardHeight,
@@ -46,6 +47,7 @@ Opponent = {
 	},
 
 	deck = {
+		cards = {},
 		pos = { x = BattleFieldWidth + Padding*2, y = Padding*2 + HandHeight + GraveyardHeight },
 		width = GraveyardWidht,
 		height = GraveyardHeight,
