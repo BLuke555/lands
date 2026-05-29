@@ -10,7 +10,6 @@ GraveyardHeight = (ScreenHeight/2 - Padding*3 - HandHeight)/2
 BattleFieldWidth = ScreenWidth - GraveyardWidht - Padding*3
 BattleFieldHeight = ScreenHeight/2 - Padding*2 - HandHeight
 
-
 Player = {
 	battlefield = {
 		pos = { x = Padding, y = ScreenHeight/2 + Padding },
@@ -29,6 +28,13 @@ Player = {
 		pos = { x = BattleFieldWidth + Padding*2, y = Padding*3 + HandHeight + BattleFieldHeight },
 		width = GraveyardWidht,
 		height = GraveyardHeight,
+	},
+
+	hand = {
+		cards = {},
+		pos = { y = ScreenHeight - HandHeight + Padding/2, x = Padding},
+		width = ScreenWidth - Padding*2,
+		height = HandHeight - Padding/2,
 	},
 }
 
@@ -51,5 +57,12 @@ Opponent = {
 		pos = { x = BattleFieldWidth + Padding*2, y = Padding*2 + HandHeight + GraveyardHeight },
 		width = GraveyardWidht,
 		height = GraveyardHeight,
+	},
+
+	hand = {
+		cards = {},
+		pos = { y = 0, x = Padding},
+		width = ScreenWidth - Padding*2,
+		height = HandHeight - Padding/2,
 	},
 }

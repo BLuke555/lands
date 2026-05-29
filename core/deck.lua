@@ -1,4 +1,4 @@
-local function fileExists(file)
+local function file_exists(file)
   local f = io.open(file, "rb")
   if f then f:close() end
   return f ~= nil
@@ -6,7 +6,7 @@ end
 
 
 function LoadDeck(deck, file)
-  if not fileExists(file) then
+  if not file_exists(file) then
 		print('this deck do not exists')
 		return {}
 	end
@@ -15,7 +15,12 @@ function LoadDeck(deck, file)
 		table.remove(deck[1])
   end
 
-  for card in io.lines(file) do
+  for card_name in io.lines(file) do
+		local card = {
+			name = card_name,
+			image = love.graphics.newImage('formats/lands/cards/' .. card_name .. '.png' )
+		}
+
 		deck[#deck + 1] = card
   end
 end
@@ -31,6 +36,10 @@ function ShuffleDeck(deck)
 end
 
 
-function DrawCard(deck)
-	return table.remove(deck, #deck)
+function DrawCards(deck, hand, num)
+	for i = 1, num, 1 do
+		hand[#hand + 1] = table.remove(deck, #deck)
+	end
+
+	print('drawn ' .. num .. ' card(s) now the player has ' .. #hand .. ' cards')
 end
