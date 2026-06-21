@@ -1,3 +1,4 @@
+
 local function file_exists(file)
   local f = io.open(file, "rb")
   if f then f:close() end
@@ -42,4 +43,13 @@ function DrawCards(deck, hand, num)
 	end
 
 	print('drawn ' .. num .. ' card(s) now the player has ' .. #hand .. ' cards')
+end
+
+
+function MoveCard(from, to, prev_index, new_index)
+	for i = #to, new_index, -1 do
+		to[i + 1] = to[i]
+	end
+
+	to[new_index] = table.remove(from, prev_index)
 end

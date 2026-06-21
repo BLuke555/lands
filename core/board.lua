@@ -12,12 +12,14 @@ BattleFieldHeight = ScreenHeight/2 - Padding*2 - HandHeight
 
 Player = {
 	battlefield = {
+		cards = {},
 		pos = { x = Padding, y = ScreenHeight/2 + Padding },
 		width = BattleFieldWidth,
 		height = BattleFieldHeight,
 	},
 
 	graveyard = {
+		cards = {},
 		pos = { x = BattleFieldWidth + Padding*2, y = Padding*4 + HandHeight + BattleFieldHeight + GraveyardHeight },
 		width = GraveyardWidht,
 		height = GraveyardHeight,
