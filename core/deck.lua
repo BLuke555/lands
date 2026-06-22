@@ -1,7 +1,7 @@
 
 local function file_exists(file)
-  local f = io.open(file, "rb")
-  if f then f:close() end
+  local f = love.filesystem.read(file)
+  if f then end
   return f ~= nil
 end
 
@@ -16,7 +16,7 @@ function LoadDeck(deck, file)
 		table.remove(deck[1])
   end
 
-  for card_name in io.lines(file) do
+  for card_name in love.filesystem.lines(file) do
 		local card = {
 			name = card_name,
 			image = love.graphics.newImage('formats/lands/cards/' .. card_name .. '.png' )
