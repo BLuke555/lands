@@ -1,0 +1,56 @@
+format_name = "Lands"
+turn_phases = ["DrawPhase", "MainPhase"]
+sets = ["LND"]
+
+
+[area.hand]
+# type can be hand, field or deck
+type = "hand"
+positon = "bottom"
+size.x = -1
+size.y = 64
+
+padding = 20
+
+initial_size = 5
+# set to -1 to indicate that there is no max hand size
+max_size = -1 
+
+player_visibility = true
+opponent_visibility = false
+
+
+[area.library]
+# type can be hand, field or deck
+type = "deck"
+position = "right"
+size.x = 63
+size.y = 88
+
+# it can be set to face_up, face_down, none
+visibility = "face_down"
+can_be_inspect = false
+
+
+[area.graveyard]
+# type can be hand, field or deck
+type = "deck"
+position = "right"
+size.x = 63
+size.y = 88
+
+# it can be set to face_up, face_down, none
+visibility = "face_up"
+can_be_inspect = true
+
+
+[area.battlefield]
+# type can be hand, field or deck
+type = "field"
+position = "right"
+size.x = -1
+size.y = -1
+
+padding = 30
+
+stacking = 3

@@ -19,7 +19,7 @@ function LoadDeck(deck, file)
   for card_name in io.lines(file) do
 		local card = {
 			name = card_name,
-			image = love.graphics.newImage('formats/lands/cards/' .. card_name .. '.png' )
+			image = love.graphics.newImage('formats/lands/cards/' .. card_name .. '.png' ),
 		}
 
 		deck[#deck + 1] = card
@@ -37,19 +37,21 @@ function ShuffleDeck(deck)
 end
 
 
-function DrawCards(deck, hand, num)
-	for i = 1, num, 1 do
-		hand[#hand + 1] = table.remove(deck, #deck)
+function MoveCards(from, to, old_index, new_index, cards_num)
+	if from == to and old_index == new_index then return end
+	if from == to and old_index < new_index then new_index = new_index - 1 end
+
+	local cards
+
+	for i = 1, cards_num, 1 do
+		cards[i] = table.remove(from, old_index)
 	end
 
-	print('drawn ' .. num .. ' card(s) now the player has ' .. #hand .. ' cards')
-end
-
-
-function MoveCard(from, to, prev_index, new_index)
 	for i = #to, new_index, -1 do
-		to[i + 1] = to[i]
+		to[i + cards_num] = to[i]
 	end
 
-	to[new_index] = table.remove(from, prev_index)
+	for i = 0, #cards, 1 do
+		to[new_index + i] = cards[i + 1]
+	end
 end
