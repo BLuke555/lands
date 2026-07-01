@@ -1,3 +1,10 @@
+local toml = require 'modules.toml'
+
+function PrepareBoard(config_file)
+	local config = toml.parse(config_file)
+
+	print(config.format_name)
+end
 
 local function file_exists(file)
   local f = io.open(file, "rb")
@@ -41,7 +48,7 @@ function MoveCards(from, to, old_index, new_index, cards_num)
 	if from == to and old_index == new_index then return end
 	if from == to and old_index < new_index then new_index = new_index - 1 end
 
-	local cards
+	local cards = {}
 
 	for i = 1, cards_num, 1 do
 		cards[i] = table.remove(from, old_index)
@@ -51,7 +58,7 @@ function MoveCards(from, to, old_index, new_index, cards_num)
 		to[i + cards_num] = to[i]
 	end
 
-	for i = 0, #cards, 1 do
-		to[new_index + i] = cards[i + 1]
+	for i = 1, #cards, 1 do
+		to[new_index + i] = cards[i]
 	end
 end

@@ -9,11 +9,15 @@ function love.load()
 
 	LoadDeck(Player.deck.cards, 'formats/lands/deck.txt')
 	ShuffleDeck(Player.deck.cards)
-	MoveCards(Player.deck.cards, Player.hand.cards, 0, #Player.deck.cards, 5)
+	MoveCards(Player.deck.cards, Player.hand.cards, 1, #Player.hand.cards, 5)
 
+	print('OPPONENT')
 	LoadDeck(Opponent.deck.cards, 'formats/lands/deck.txt')
+	print('deck loaded')
 	ShuffleDeck(Opponent.deck.cards)
-	MoveCards(Opponent.deck.cards, Opponent.hand.cards, 0, #Player.deck.cards, 5)
+	print('deck shuffled')
+	MoveCards(Opponent.deck.cards, Opponent.hand.cards, 1, #Opponent.hand.cards, 5)
+	print('drawn 5 cards')
 
 	Back = love.graphics.newImage('formats/lands/cards/back.png')
 end
@@ -40,7 +44,7 @@ function love.update(dt)
 				}
 
 				if (mouse_pos.x > card.x - card.width/2 and mouse_pos.x < card.x + card.height/2 and mouse_pos.y > card.y - card.height/2 and mouse_pos.y < card.y + card.height/2) then
-					MoveCards(Player.hand.cards, Player.battlefield.cards, i, #Player.battlefield.cards + 1, 1)
+					MoveCards(Player.hand.cards, Player.battlefield.cards, i, #Player.battlefield.cards, 1)
 					break
 				end
 			end
