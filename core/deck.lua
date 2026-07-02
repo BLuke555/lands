@@ -1,4 +1,4 @@
-local toml = require 'modules.toml'
+local toml = require 'modules.tinytoml.tinytoml'
 
 function PrepareBoard(config_file)
 	local config = toml.parse(config_file)
