@@ -1,56 +1,90 @@
+# ====== GENERAL SETTINGS =========
+
 format_name = "Lands"
 turn_phases = ["DrawPhase", "MainPhase"]
 sets = ["LND"]
+players = 2 # for now it works for only two players, it may works on 1 too
+
+initial_hand_size = 5
+should_draw_first_turn = false
+
+   
+
+
+# ============= AREAS ===============
+
+# +-------------+---+			type - can be deck, hand or field
+# |							|2,1|			. deck: is a pile of cards so it can 
+# |			1, 0		+---+			can be shown as the first card face
+# |							|2,2|			up or as the back of the cards
+# +-------------+---+			. hand: display all the cards one
+#	|				HAND			|			after the other at the bottom or on
+#	+-----------------+			the right side of the screen (maybe
+#													side so if one is left handed can
+#	flip everything orizzontally)
+#	. field, tend to occupy as much space as possible
+#
+#	position_x and position_y - are used as shown in the image to 
+#	tell the game How you want to stack things together
+#
+#	padding - tells the game the space in pixels you want to 
+#	have between cards (it CAN be negative if you want cards to 
+#	overlap)
+#
+#	size - indicates the size in pixels (or in ratio if it is a
+#	field type) of the area
+#
+# can_be_inspect - is a variable in decks that tells the game if
+# it can be picked at any time
 
 
 [area.hand]
-# type can be hand, field or deck
 type = "hand"
 positon = "bottom"
-size.x = -1
-size.y = 64
+size = 64
 
 padding = 20
 
-initial_size = 5
-# set to -1 to indicate that there is no max hand size
 max_size = -1 
+# set to -1 to indicate that there is no max hand size
 
 player_visibility = true
 opponent_visibility = false
+# tell the game which hand must be shown
 
 
 [area.library]
-# type can be hand, field or deck
 type = "deck"
-position = "right"
+position_x = 2
+position_y = 1
 size.x = 63
 size.y = 88
 
-# it can be set to face_up, face_down, none
 visibility = "face_down"
+# it can be set to face_up, face_down, none
 can_be_inspect = false
 
 
 [area.graveyard]
-# type can be hand, field or deck
 type = "deck"
 position = "right"
 size.x = 63
 size.y = 88
 
-# it can be set to face_up, face_down, none
 visibility = "face_up"
 can_be_inspect = true
 
 
 [area.battlefield]
-# type can be hand, field or deck
 type = "field"
-position = "right"
+position_x = 1
+position_y = 0
 size.x = -1
 size.y = -1
 
 padding = 30
 
 stacking = 3
+# tells the game at what point similar cards must
+# be groupped as a single card with a number below
+# -1 means never

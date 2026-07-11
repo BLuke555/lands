@@ -3,6 +3,9 @@ require('core.deck')
 
 local mouse_pressed = false
 
+Game = {
+}
+
 -- Load some default values for our rectangle.
 function love.load()
 	math.randomseed( os.time() )
@@ -11,13 +14,11 @@ function love.load()
 	ShuffleDeck(Player.deck.cards)
 	MoveCards(Player.deck.cards, Player.hand.cards, 1, #Player.hand.cards, 5)
 
-	print('OPPONENT')
+	Game = ParseConfig('./formats/lands/config.toml')
+
 	LoadDeck(Opponent.deck.cards, 'formats/lands/deck.txt')
-	print('deck loaded')
 	ShuffleDeck(Opponent.deck.cards)
-	print('deck shuffled')
 	MoveCards(Opponent.deck.cards, Opponent.hand.cards, 1, #Opponent.hand.cards, 5)
-	print('drawn 5 cards')
 
 	Back = love.graphics.newImage('formats/lands/cards/back.png')
 end
@@ -58,7 +59,7 @@ end
 function love.draw()
 	love.graphics.clear()
 
-	-- Draw battlefields
+	-- Draw areas lines
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.rectangle( "line", Player.battlefield.pos.x, Player.battlefield.pos.y, Player.battlefield.width, Player.battlefield.height )
 	love.graphics.rectangle( "line", Opponent.battlefield.pos.x, Opponent.battlefield.pos.y, Opponent.battlefield.width, Opponent.battlefield.height )
