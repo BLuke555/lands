@@ -1,5 +1,6 @@
 require('core.board')
 require('core.deck')
+require('core.matchstate')
 
 local mouse_pressed = false
 
@@ -19,6 +20,10 @@ function love.load()
 	LoadDeck(Opponent.deck.cards, 'formats/lands/deck.txt')
 	ShuffleDeck(Opponent.deck.cards)
 	MoveCards(Opponent.deck.cards, Opponent.hand.cards, 1, #Opponent.hand.cards, 5)
+	
+	matchstate.init()
+	matchstate.phaseAdvance()
+	matchstate.phaseAdvance()
 
 	Back = love.graphics.newImage('formats/lands/cards/back.png')
 end
