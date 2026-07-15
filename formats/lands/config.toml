@@ -57,21 +57,23 @@ opponent_visibility = false
 type = "deck"
 position_x = 2
 position_y = 1
-size.x = 63
-size.y = 88
+# default size are set to the dimensions of the sprites of the cards
+# width = 63
+# height = 88
 
-visibility = "face_down"
 # it can be set to face_up, face_down, none
+visibility = "face_down"
+rendering = 'line'
 can_be_inspect = false
 
 
 [area.graveyard]
 type = "deck"
-position = "right"
-size.x = 63
-size.y = 88
+position_x = 2
+position_y = 2
 
 visibility = "face_up"
+rendering = 'line'
 can_be_inspect = true
 
 
@@ -79,12 +81,13 @@ can_be_inspect = true
 type = "field"
 position_x = 1
 position_y = 0
-size.x = -1
-size.y = -1
+width = 1
+height = 1
 
 padding = 30
 
-stacking = 3
+rendering = 'line'
 # tells the game at what point similar cards must
 # be groupped as a single card with a number below
 # -1 means never
+stacking = 3
