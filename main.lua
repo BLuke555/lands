@@ -7,6 +7,7 @@ Board = {}
 Sprites = {}
 
 
+
 function love.load()
 	math.randomseed( os.time() )
 	Game.mouse_pressed = false
@@ -52,6 +53,8 @@ function love.update(dt)
 	else
 		Game.mouse_pressed = false
 	end
+
+	-- love.event.quit()
 end
 
 
