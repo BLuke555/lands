@@ -30,6 +30,7 @@ function love.load()
 		ShuffleDeck(library.cards)
 		MoveCards(library.cards, hand.cards, 1, #hand.cards, Game.initial_hand_size)
 	end
+
 end
 
 
@@ -53,8 +54,6 @@ function love.update(dt)
 	else
 		Game.mouse_pressed = false
 	end
-
-	-- love.event.quit()
 end
 
 
@@ -114,11 +113,3 @@ function love.draw()
 	-- 	love.graphics.draw( Player.battlefield.cards[i].image, card.x, card.y, 0, card.scale, card.scale, card.width/2, card.height/2)
 	-- end
 end
-
-
-
-
-
-
-
-

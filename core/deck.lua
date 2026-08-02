@@ -155,12 +155,19 @@ function LoadConfig(config_file)
 				print("configuring palyer " .. player_id .. " position x: " .. x_position ..", y: " .. y_position)
 				print("type: " .. area.type)
 
-				area.rect.x = x_position
-				area.rect.y = y_position
 				if area.type == 'field' then
 					area.rect.w = max_field_size_x / (max_field_ratio_x*area.width)
 					area.rect.h = max_field_size_y / (max_field_ratio_y*area.height)
 				end
+
+				if player_id == 1 then
+					area.rect.x = x_position
+					area.rect.y = y_position + love.graphics.getHeight()/2
+				elseif player_id == 2 then
+					area.rect.x = love.graphics.getWidth() - x_position - area.rect.w
+					area.rect.y = love.graphics.getHeight()/2 - y_position - area.rect.h
+				end
+
 				y_position = y_position + area.rect.h + config.padding_y
 				shift_position = math.max(shift_position, area.rect.w)
 			end
