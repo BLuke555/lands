@@ -26,7 +26,7 @@ function love.load()
 		local library = Board.library[player_id]
 		local hand = Board.hand[player_id]
 
-		LoadDeck(library.cards, 'formats/lands/deck.txt')
+		LoadDeck(library.cards, 'formats/lands/decks/deck.txt')
 		ShuffleDeck(library.cards)
 		MoveCards(library.cards, hand.cards, 1, #hand.cards, Game.initial_hand_size)
 	end
