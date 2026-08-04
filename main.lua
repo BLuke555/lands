@@ -5,12 +5,13 @@ require('core.config')
 
 Game = {}
 Board = {}
+Cards = {}
 Sprites = {}
 
 
 
 function love.load()
-	math.randomseed( os.time() )
+	math.randomseed(os.time())
 	Game.mouse_pressed = false
 
 	-- configuring the board
@@ -61,56 +62,18 @@ end
 function love.draw()
 	love.graphics.clear()
 
-	-- Draw areas lines
-	love.graphics.setColor(1, 1, 1)
 	for area_id,area in pairs(Board) do
 		for player_id = 1, Game.players, 1 do
-			print('reandering ' .. area_id .. ' of player ' .. player_id)
-			local rect = area[player_id].rect
-			love.graphics.rectangle("line", rect.x, rect.y, rect.w, rect.h )
+
+			love.graphics.setColor(1, 1, 1)
+			if area[player_id].border == 'line' then
+				local area_rect = area[player_id].rect
+				love.graphics.rectangle("line", area_rect.x, area_rect.y, area_rect.w, area_rect.h)
+			end
+
+			for _, card in pairs(Cards) do
+				love.graphics.draw(Sprites[card.name].sprite, card.rect.x, card.rect.y, card.angle, card.rect.scale, card.rect.scale, card.rect.w/2, card.rect.h/2)
+			end
 		end
 	end
-
-	-- -- printing opponents cards
-	-- for i = 1, #Opponent.hand.cards, 1 do
-	-- 	local card = {
-	-- 		x = Opponent.hand.pos.x + (i-1)*(Opponent.hand.cards[i].image:getWidth() + 5),
-	-- 		y = Opponent.hand.pos.y
-	-- 	}
-
-	-- 	love.graphics.draw( Game.sprites['back'], card.x, card.y )
-	-- end
-
-	-- -- printing player cards
-	-- for i = 1, #Player.hand.cards, 1 do
-	-- 	local card = {
-	-- 		x = Player.hand.pos.x + Player.hand.cards[i].image:getWidth()/2 + (i-1)*(Player.hand.cards[i].image:getWidth() + 5),
-	-- 		y = Player.hand.pos.y + Player.hand.cards[i].image:getHeight()/2,
-	-- 		width = Player.hand.cards[i].image:getWidth(),
-	-- 		height = Player.hand.cards[i].image:getHeight(),
-	-- 		scale = 1,
-	-- 	}
-	-- 	local mouse_pos = {
-	-- 		x = love.mouse.getX(),
-	-- 		y = love.mouse.getY()
-	-- 	}
-
-	-- 	if (mouse_pos.x > card.x - card.width/2 and mouse_pos.x < card.x + card.height/2 and mouse_pos.y > card.y - card.height/2 and mouse_pos.y < card.y + card.height/2) then
-	-- 		card.scale = 1.2
-	-- 	end
-
-	-- 	love.graphics.draw( Player.hand.cards[i].image, card.x, card.y, 0, card.scale, card.scale, card.width/2, card.height/2)
-	-- end
-
-	-- for i = 1, #Player.battlefield.cards, 1 do
-	-- 	local card = {
-	-- 		x = Player.battlefield.pos.x + Player.battlefield.cards[i].image:getWidth()/2 + (i-1)*(Player.battlefield.cards[i].image:getWidth() + 5),
-	-- 		y = Player.battlefield.pos.y + Player.battlefield.cards[i].image:getHeight()/2 + 10,
-	-- 		width = Player.battlefield.cards[i].image:getWidth(),
-	-- 		height = Player.battlefield.cards[i].image:getHeight(),
-	-- 		scale = 1,
-	-- 	}
-
-	-- 	love.graphics.draw( Player.battlefield.cards[i].image, card.x, card.y, 0, card.scale, card.scale, card.width/2, card.height/2)
-	-- end
 end
