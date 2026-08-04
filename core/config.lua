@@ -132,6 +132,7 @@ function LoadConfig(config_file)
 						area_position[value.position_x][value.position_y] = cur_area
 
 						cur_area.border = value.border or 'none'
+						cur_area.visibility = value.visibility or 'none'
 				end
 			})
 

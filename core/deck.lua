@@ -35,11 +35,12 @@ function ShuffleDeck(deck)
 end
 
 
+-- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_deck_to_deck(from, to, old_index, new_index, num_cards_to_move)
 	local cards_to_move = {}
 
 	for i = 1, num_cards_to_move, 1 do
-		cards_to_move[i] = table.remove(from, old_index)
+		cards_to_move[i] = table.remove(from.cards, old_index)
 	end
 
 	for i = #to.cards, new_index, -1 do
@@ -52,15 +53,18 @@ local function move_deck_to_deck(from, to, old_index, new_index, num_cards_to_mo
 end
 
 
+-- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_deck_to_play(from, to, old_index, new_index, num_cards_to_move)
 	for i = 1, num_cards_to_move, 1 do
-		Cards[#Cards+1] = table.remove(from, old_index)
-		Cards[#Cards+1].area = to
-		Cards[#Cards+1].position = new_index+i
+		local idx = #Cards + 1
+		Cards[idx] = table.remove(from.cards, old_index)
+		Cards[idx].area = to
+		Cards[idx].position = new_index+i
 	end
 end
 
 
+-- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_play_to_deck(from, to, old_index, new_index, num_cards_to_move)
 	for i = #to.cards, new_index, -1 do
 		to.cards[num_cards_to_move + i] = to.cards[i]
@@ -77,6 +81,7 @@ local function move_play_to_deck(from, to, old_index, new_index, num_cards_to_mo
 end
 
 
+-- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_play_to_play(from, to, old_index, new_index, num_cards_to_move)
 	for _, card in ipairs(Cards) do
 		if card.position >= new_index then
@@ -100,7 +105,8 @@ function MoveCards(from, to, old_index, new_index, cards_num)
 	if from == to and old_index == new_index then return 0 end
 	if from == to and old_index < new_index then new_index = new_index - 1 end
 
-	local num_cards_to_move = math.min(cards_num, #from)
+	local num_cards_to_move = math.min(cards_num, #from.cards)
+	print('moving ' .. num_cards_to_move .. ' cards from ' .. from.type .. ' to ' .. to.type)
 
 	if from.type == 'deck' then
 		if to.type == 'deck' then
