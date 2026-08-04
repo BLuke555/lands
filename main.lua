@@ -1,5 +1,6 @@
 require('core.board')
 require('core.deck')
+require('core.config')
 
 
 Game = {}
