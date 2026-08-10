@@ -46,7 +46,7 @@ function LoadConfig(config_file)
 		local area_position = {}
 
 		for key, value in pairs(config.area) do
-			print('[CONFIG] parsing configuration for palyer ' .. player_id .. ' area ' .. key)
+			print('[CONFIG] parsing configuration for player ' .. player_id .. ' area ' .. key)
 
 			local cur_area = {
 				cards = {},
@@ -132,7 +132,6 @@ function LoadConfig(config_file)
 						area_position[value.position_x][value.position_y] = cur_area
 
 						cur_area.border = value.border or 'none'
-						cur_area.visibility = value.visibility or 'none'
 				end
 			})
 
@@ -148,12 +147,12 @@ function LoadConfig(config_file)
 			local y_position = config.padding_screen_y
 			local shift_position = 0
 			for _, area in pairs(value) do
-				print('[CONFIG] configuring palyer ' .. player_id .. ' position X: ' .. x_position ..', Y: ' .. y_position)
+				print('[CONFIG] configuring player ' .. player_id .. ' position X: ' .. x_position ..', Y: ' .. y_position)
 				print('[CONFIG] type: ' .. area.type)
 
 				if area.type == 'field' then
 					area.rect.w = max_field_size_x / (max_field_ratio_x*area.width)
-					area.rect.h = max_field_size_y / (max_field_ratio_y*area.height)
+					area.rect.h = max_field_size_y / (max_field_ratio_y*area.height) - 60
 				end
 
 				if player_id == 1 then
