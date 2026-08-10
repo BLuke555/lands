@@ -35,6 +35,12 @@ function ShuffleDeck(deck)
 end
 
 
+function IsMouseOver(rect)
+	local x, y = love.mouse.getPosition()
+	return (x > rect.x and x < rect.x + rect.width and
+					y > rect.y and y < rect.y + rect.height)
+end
+
 -- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_deck_to_deck(from, to, old_index, new_index, num_cards_to_move)
 	local cards_to_move = {}

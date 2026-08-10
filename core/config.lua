@@ -45,38 +45,42 @@ function LoadConfig(config_file)
 		local max_position_y = 0
 		local area_position = {}
 
+		local areas = {}
+
 		for key, value in pairs(config.area) do
 			print('[CONFIG] parsing configuration for palyer ' .. player_id .. ' area ' .. key)
+			LastEntity = LastEntity + 1
+			local entity_idx = LastEntity
 
-			local cur_area = {
-				cards = {},
-				type = value.type,
-				rect = { x = 0, y = 0, w = 0, h = 0 },
-				visibility = false,
-			}
+			local cur_area = {}
+			Types[entity_idx] = value.type
 
-			Switch(cur_area.type, {
+			Switch(value.type, {
 				['hand'] = function ()
 					cur_area.padding = value.padding or 5
 
 					-- player_id = 1 is always the current player, even in multiplayer
 					if player_id == 1 then
+						if Rects[entity_idx] == nil then
+							Rects[entity_idx] = {}
+						end
+
 						Switch(value.position, {
 							['bottom'] = function()
 								print('[CONFIG] set hand to bottom')
 								is_hand_at_the_bottom = true
-								cur_area.rect.x = 0
-								cur_area.rect.y = love.graphics.getHeight() - value.size
-								cur_area.rect.w = love.graphics.getWidth()
-								cur_area.rect.h = value.size
+								Rects[entity_idx].x = 0
+								Rects[entity_idx].y = love.graphics.getHeight() - value.size
+								Rects[entity_idx].w = love.graphics.getWidth()
+								Rects[entity_idx].h = value.size
 							end,
 							['side'] = function()
 								print('[CONFIG][CONFIG]  set hand to side')
 								is_hand_at_the_bottom = false
-								cur_area.rect.x = love.graphics.getWidth() - value.size
-								cur_area.rect.y = 0
-								cur_area.rect.w = value.size
-								cur_area.rect.h = love.graphics.getHeight()
+								Rects[entity_idx].x = love.graphics.getWidth() - value.size
+								Rects[entity_idx].y = 0
+								Rects[entity_idx].w = value.size
+								Rects[entity_idx].h = love.graphics.getHeight()
 							end
 						})
 						cur_area.visibility = value.player_visibility
@@ -86,7 +90,8 @@ function LoadConfig(config_file)
 				end,
 
 				['field'] = function ()
-					-- TODO: add configuration for field type
+						cur_area.idx = entity_idx
+
 						max_position_x = math.max(max_position_x, value.position_x)
 						max_position_y = math.max(max_position_y, value.position_y)
 
@@ -101,14 +106,15 @@ function LoadConfig(config_file)
 						end
 						area_position[value.position_x][value.position_y] = cur_area
 
-						cur_area.padding = value.padding or 5
-						cur_area.border = value.border or 'none'
+						-- cur_area.padding = value.padding or 5
+						Rendering[entity_idx] = value.border or 'none'
 				end,
 
 				['deck'] = function ()
-					-- TODO: add configuration for deck type
-						cur_area.rect.w = value.width or Sprites['back']:getWidth()
-						cur_area.rect.h = value.height or Sprites['back']:getHeight()
+					cur_area.idx = entity_idx
+
+						cur_area.width = value.width or Sprites['back']:getWidth()
+						cur_area.width = value.height or Sprites['back']:getHeight()
 
 						max_position_x = math.max(max_position_x, value.position_x)
 						max_position_y = math.max(max_position_y, value.position_y)
@@ -116,9 +122,10 @@ function LoadConfig(config_file)
 
 						-- make space for the actual deck if and only if we did not already made space for it
 						if not area_position[value.position_x] then
-							max_field_size_x = max_field_size_x - cur_area.rect.w - config.padding_x
+							max_field_size_x = max_field_size_x - cur_area.width - config.padding_x
 							area_position[value.position_x] = {}
 						end
+						area_position[value.position_x][value.position_y] = cur_area
 
 						-- FIXME: this way you subtract the space for the deck even if the deck is not on the same space,
 						-- for now it's good but only because we do not have deck above or below an actual area
@@ -129,17 +136,9 @@ function LoadConfig(config_file)
 						-- 	max_field_size_y = max_field_size_y - cur_area.rect.h - config.padding_y
 						-- end
 
-						area_position[value.position_x][value.position_y] = cur_area
-
-						cur_area.border = value.border or 'none'
-						cur_area.visibility = value.visibility or 'none'
+						Rendering[entity_idx] = value.visibility or 'none'
 				end
 			})
-
-			if not Board[key] then
-				Board[key] = {}
-			end
-			Board[key][player_id] = cur_area
 		end
 
 		-- configuring the actual position of the areas
@@ -150,6 +149,8 @@ function LoadConfig(config_file)
 			for _, area in pairs(value) do
 				print('[CONFIG] configuring palyer ' .. player_id .. ' position X: ' .. x_position ..', Y: ' .. y_position)
 				print('[CONFIG] type: ' .. area.type)
+
+				if Rects[entity_idx] then end
 
 				if area.type == 'field' then
 					area.rect.w = max_field_size_x / (max_field_ratio_x*area.width)
