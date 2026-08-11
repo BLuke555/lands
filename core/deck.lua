@@ -1,11 +1,3 @@
-function Switch(param, case_table)
-    local case = case_table[param]
-    if case then return case() end
-    local def = case_table['default']
-    return def and def() or nil
-end
-
-
 function LoadDeck(deck, file)
   while not #deck == 0 do
 		table.remove(deck[1])
@@ -35,12 +27,6 @@ function ShuffleDeck(deck)
 end
 
 
-function IsMouseOver(rect)
-	local x, y = love.mouse.getPosition()
-	return (x > rect.x and x < rect.x + rect.width and
-					y > rect.y and y < rect.y + rect.height)
-end
-
 -- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_deck_to_deck(from, to, old_index, new_index, num_cards_to_move)
 	local cards_to_move = {}
@@ -58,7 +44,6 @@ local function move_deck_to_deck(from, to, old_index, new_index, num_cards_to_mo
 	end
 end
 
-
 -- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_deck_to_play(from, to, old_index, new_index, num_cards_to_move)
 	for i = 1, num_cards_to_move, 1 do
@@ -68,7 +53,6 @@ local function move_deck_to_play(from, to, old_index, new_index, num_cards_to_mo
 		Cards[idx].position = new_index+i
 	end
 end
-
 
 -- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_play_to_deck(from, to, old_index, new_index, num_cards_to_move)
@@ -85,7 +69,6 @@ local function move_play_to_deck(from, to, old_index, new_index, num_cards_to_mo
 		end
 	end
 end
-
 
 -- NOTE: DO NOT CALL THIS FUNCTION DIRECTLY, ALWAYS USE MoveCards()
 local function move_play_to_play(from, to, old_index, new_index, num_cards_to_move)
@@ -105,7 +88,6 @@ local function move_play_to_play(from, to, old_index, new_index, num_cards_to_mo
 		end
 	end
 end
-
 
 function MoveCards(from, to, old_index, new_index, cards_num)
 	if from == to and old_index == new_index then return 0 end

@@ -18,7 +18,6 @@ local function gameConfig(config)
 	end
 end
 
-
 function LoadConfig(config_file)
 	print('[CONFIG] loading configuration file')
 	local config = toml.parse(config_file)
