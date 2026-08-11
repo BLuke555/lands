@@ -1,8 +1,7 @@
 require('core.core')
-require('core.deck')
 require('core.config')
-
-local ecs = require('core.ecs')
+require('core.deck')
+require('core.ecs')
 
 
 -- this struct contains all the general behaviour/data of
@@ -45,20 +44,8 @@ function love.load()
 	-- configuring the board
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
 	-- LoadConfig('./formats/lands/config.toml')
-	
-	for i = 1, 10, 1 do
-		Entities[i] = i
-		Rects[i] = {
-			x = 100,
-			y = 100,
-			width = Sprites['back']:getWidth(),
-			height = Sprites['back']:getHeight(),
-			rotation = 0,
-			origin_x = Sprites['back']:getWidth()/2,
-			origin_y = Sprites['back']:getHeight()/2,
-		}
-		Rendering[i] = 'face_down'
-	end
+
+	LoadConfig('./formats/lands/config.toml')
 
 	--TODO: rember to use paper scissor rock who's the first player
 	--to do that we could load some special deck and use the function to peek into
@@ -88,18 +75,25 @@ end
 function love.draw()
 	love.graphics.clear()
 
+	print(#Entities)
 	for _, entity in ipairs(Entities) do
+		print('entity ' .. entity)
 		local rect = Rects[entity]
 		local name = Names[entity]
 
 		if Rects[entity] ~= nil then
 			if Rendering[entity] == 'face_up' then
-				love.graphics.draw(Sprites[name], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
+				if Types[entity] == 'card' then
+					love.graphics.draw(Sprites[name], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
+				end
+
 			elseif Rendering[entity] == 'face_down' then
 				love.graphics.draw(Sprites['back'], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
+
 			elseif Rendering[entity] == 'line' then
 				love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
 			end
 		end
+
 	end
 end
