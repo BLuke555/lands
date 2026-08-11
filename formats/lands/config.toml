@@ -55,8 +55,8 @@ padding = 20
 max_size = -1 
 # set to -1 to indicate that there is no max hand size
 
-player_visibility = true
-opponent_visibility = false
+player_visibility = 'face_up'
+opponent_visibility = 'face_down'
 # tell the game which hand must be shown
 
 

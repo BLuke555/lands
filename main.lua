@@ -20,19 +20,16 @@ Rects			= {}
 Rendering = {}
 Types			= {}
 Sprites		= {}
-Area			= {}
+Areas			= {}
+Cards			= {}
+Padding		= {}
 
--- for easier access to specific areas and to give the Cards
--- compoent just to those entities I did this part separated
--- and struct style instead of array style, the id component
--- tell you which areas correspond to which entity
---
--- the strcture style would be Board.area[player_id]
+
+-- To get the index of the entity rappresenting the area 
+-- the strcture style would be Idx.area[player_id]
 -- cards are array of the indexes of the entities constained
 -- in that area, the cards in the decks have just no rect
 -- component
-Board = {}
-Cards = {}
 Idx		= {}
 
 
@@ -45,7 +42,13 @@ function love.load()
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
 	-- LoadConfig('./formats/lands/config.toml')
 
-	LoadConfig('./formats/lands/config.toml')
+	LoadConfig('formats/lands/config.toml')
+	local library = Idx.library[1]
+	LoadArea(library, 'formats/lands/decks/deck.txt')
+	ShuffleArea(library)
+	for _=1, 5 do
+		MoveCard(Cards[library][#Cards[library]], Idx.hand[1])
+	end
 
 	--TODO: rember to use paper scissor rock who's the first player
 	--to do that we could load some special deck and use the function to peek into
@@ -60,13 +63,13 @@ function love.update(dt)
 
 			for _, entity in ipairs(Entities) do
 				if IsMouseOver(Rects[entity]) then
-					Game.selected_entity = entity
+					-- Game.selected_entity = entity
 					break
 				end
 			end
 
 		elseif Game.selected_entity ~= nil then
-			Rects[Game.selected_entity].x, Rects[Game.selected_entity].y = love.mouse.getPosition()
+			-- Rects[Game.selected_entity].x, Rects[Game.selected_entity].y = love.mouse.getPosition()
 		end
 
 	else

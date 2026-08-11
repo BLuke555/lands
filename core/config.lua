@@ -32,7 +32,6 @@ end
 local function configHand(player_id, entity, value)
 	local cur_area = {}
 	cur_area.idx = entity
-	cur_area.padding = value.padding or 5
 
 	if Rects[entity] == nil then
 		Rects[entity] = {}
@@ -194,10 +193,11 @@ function LoadConfig(config_file)
 
 			if not Idx[key] then Idx[key] = {} end
 			Idx[key][player_id] = entity
-			if not Cards[key] then Cards[key] = {} end
-			Cards[key][player_id] = {}
+			Cards[entity] = {}
+			Padding[entity] = value.padding or 5
 			Types[entity] = value.type
 			if not Rects[entity] then Rects[entity] = {} end
+			Names[entity] = key .. '_' .. player_id
 
 			Switch(value.type, {
 				['hand'] = function ()
