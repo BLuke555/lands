@@ -52,6 +52,7 @@ function love.load()
 	--said deck to chose the card and then compeer
 end
 
+
 function love.update(dt)
 	if love.mouse.isDown(1) then
 		if not Game.mouse_pressed then
@@ -63,21 +64,22 @@ function love.update(dt)
 					break
 				end
 			end
+
 		elseif Game.selected_entity ~= nil then
 			Rects[Game.selected_entity].x, Rects[Game.selected_entity].y = love.mouse.getPosition()
 		end
+
 	else
 		Game.selected_entity = nil
 		Game.mouse_pressed = false
 	end
 end
 
+
 function love.draw()
 	love.graphics.clear()
 
-	print(#Entities)
 	for _, entity in ipairs(Entities) do
-		print('entity ' .. entity)
 		local rect = Rects[entity]
 		local name = Names[entity]
 

@@ -50,6 +50,7 @@ local function configHand(player_id, entity, value)
 				Rects[entity].width = love.graphics.getWidth()
 				Rects[entity].height = value.size
 			end,
+
 			['side'] = function()
 				print('[CONFIG][CONFIG]  set hand to side')
 				Game.is_hand_at_the_bottom = false
@@ -57,10 +58,18 @@ local function configHand(player_id, entity, value)
 				Rects[entity].y = 0
 				Rects[entity].width = value.size
 				Rects[entity].height = love.graphics.getHeight()
+			end,
+
+			['default'] = function ()
+				Game.is_hand_at_the_bottom = true
+				Rects[entity].x = 0
+				Rects[entity].y = love.graphics.getHeight() - value.size
+				Rects[entity].width = love.graphics.getWidth()
+				Rects[entity].height = value.size
 			end
 		})
-
 		Rendering[entity] = value.player_visibility
+
 	else
 		Rects[entity].x = 0
 		Rects[entity].y = 0
