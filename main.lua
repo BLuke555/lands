@@ -7,7 +7,8 @@ require('core.ecs')
 -- this struct contains all the general behaviour/data of
 -- the entire game or match, like the life points, the turn
 -- phases, the number of players...
-Game = {}
+Game		= {}
+Sprites	= {}
 
 -- those are the components of most of the game entities
 -- if you do not want an entity to render you just do not
@@ -19,7 +20,6 @@ Names			= {}
 Rects			= {}
 Rendering = {}
 Types			= {}
-Sprites		= {}
 Areas			= {} -- this contains the index of to the areas the card is in
 Cards			= {} -- this contains an arrray of indexes of the cards contained in this area
 Padding		= {}
@@ -33,12 +33,16 @@ Padding		= {}
 Idx		= {}
 
 
-
 function love.load()
 	math.randomseed(os.time())
 	Game.mouse_pressed = false
 
-	-- configuring the board
+	-- TODO: implement this type of behaviour
+	-- -- configuring the board
+	-- if Game.theme == nil then Game.theme = 'default' end
+	-- Sprites['back'] = love.graphics.newImage('theme/' .. Game.theme .. '/cards/back.png') or love.graphics.newImage('theme/default/cards/back.png')
+	-- Sprites['back_tmb'] = love.graphics.newImage('theme/' .. Game.theme .. '/cards/back_tmb.png') or love.graphics.newImage('theme/default/cards/back_tmb.png')
+
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
 
 	LoadConfig('formats/lands/config.toml')
@@ -88,7 +92,7 @@ function love.draw()
 		local rect = Rects[entity]
 		local name = Names[entity]
 
-		if Rects[entity] ~= nil then
+		if rect ~= nil then
 			if Types[entity] == 'deck' and #Cards[entity] == 0 then
 				love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
 

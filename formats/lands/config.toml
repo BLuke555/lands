@@ -90,10 +90,15 @@ position_y = 0
 width = 1
 height = 1
 
-padding = 30
+padding = 15
 
 border = 'line'
 # tells the game at what point similar cards must
 # be groupped as a single card with a number below
 # -1 means never
 stacking = 3
+
+
+[area.pippo_franco]
+pippo_franco_1
+pippo_franco_2

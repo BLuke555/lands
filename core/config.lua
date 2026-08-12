@@ -173,7 +173,9 @@ function LoadConfig(config_file)
 	-- palyers dunno.
 	-- we could also just store this information once for all the areas but... there is something that
 	-- tell me that doing that every frame... I'm just not convinced
-	-- if not we could at least make it so yyou can write asymmetrical type of configuration 
+	-- 
+	-- NOTE: better still, implement an asymmetrical behaviour for the areas
+	-- if not we could at least make it so you can write asymmetrical type of configuration 
 
 	for player_id = 1, config.players or 2, 1 do
 		print('[CONFIG] PLAYER ' .. player_id)

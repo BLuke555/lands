@@ -1,18 +1,18 @@
 return {
 	['DRAW'] = function ()
-		for _=1, arg[1] do
-			local library = Idx.library[Game.current_player]
-			local hand = Idx.hand[Game.current_player]
+		local library = Idx.library[Game.current_player]
+		local hand = Idx.hand[Game.current_player]
 
+		for _=1, arg[1] do
 			MoveCard(library[#library], hand)
 		end
 	end,
 
 	['REVIVE'] = function ()
-		for _=1, arg[1] do
-			local graveyard = Idx.graveyard[Game.current_player]
-			local hand = Idx.hand[Game.current_player]
+		local graveyard = Idx.graveyard[Game.current_player]
+		local hand = Idx.hand[Game.current_player]
 
+		for _=1, arg[1] do
 			MoveCard(graveyard[#graveyard], hand)
 		end
 	end,
@@ -28,6 +28,11 @@ return {
 		-- [https://mtg-arena.work/wp-content/uploads/2022/12/TREEFOLK-BLACKGREEN-ALCHEMY-MTG-Arena.jpg]
 		-- it returns the selected entity
 		-- NOTE: it must be specified how many card must been choose
-		MoveCard(PeekArea(battlefield, 1), graveyard)
+		local chosen_card = PeekArea(battlefield, 1, false)
+		MoveCard(chosen_card[1], graveyard)
 	end,
+
+	['NEGATE'] = function ()
+		 --TODO: implement this
+	end
 }

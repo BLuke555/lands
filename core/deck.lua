@@ -1,3 +1,5 @@
+-- FIXME: to split between areas types
+-- TODO: a NewFieldCard() etc...
 function UpdateArea(entity)
 	for i, card in ipairs(Cards[entity]) do
 		if Rects[card] == nil then
@@ -33,7 +35,6 @@ function GetAreaNameFromIdx(entity)
 
 	return area_name
 end
-
 
 function GetAreaPlayerFromIdx(entity)
 	local name = Names[entity]
