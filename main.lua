@@ -32,9 +32,8 @@ Padding		= {}
 -- component
 Idx		= {}
 
-
 function love.load()
-	math.randomseed(os.time())
+	math.randomseed( os.time() )
 	Game.mouse_pressed = false
 
 	-- TODO: implement this type of behaviour
@@ -58,6 +57,20 @@ function love.load()
 	--TODO: rember to use paper scissor rock who's the first player
 	--to do that we could load some special deck and use the function to peek into
 	--said deck to chose the card and then compeer
+
+	matchstate.init()
+	
+	--loading the deck and drawing the initial hand
+	for player_id = 1, Game.players, 1 do
+		local library = Board.library[player_id]
+		local hand = Board.hand[player_id]
+
+		LoadDeck(library.cards, 'formats/lands/decks/deck.txt')
+		ShuffleDeck(library.cards)
+		MoveCards(library.cards, hand.cards, 1, #hand.cards, Game.initial_hand_size)
+	end
+
+	matchstate.transition("DrawPhase")
 end
 
 
@@ -65,17 +78,13 @@ function love.update(dt)
 	if love.mouse.isDown(1) then
 		if not Game.mouse_pressed then
 			Game.mouse_pressed = true
-
-			for _, entity in ipairs(Entities) do
-				if IsMouseOver(Rects[entity]) then
-					-- Game.selected_entity = entity
-					print(Names[entity])
-					break
-				end
+			
+			print(selectedCard)
+			if selectedCard > 0 then
+				MoveCards(Board['hand'][1].cards, Board['battlefield'][1].cards, selectedCard, #Board['battlefield'][1].cards, 1)
+				
+				matchstate.transition("DrawPhase")
 			end
-
-		elseif Game.selected_entity ~= nil then
-			-- Rects[Game.selected_entity].x, Rects[Game.selected_entity].y = love.mouse.getPosition()
 		end
 
 	else

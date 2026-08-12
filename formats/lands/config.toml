@@ -47,7 +47,7 @@ padding_y = 20
 
 [area.hand]
 type = "hand"
-positon = "bottom"
+position = "bottom"
 size = 64
 
 padding = 2
@@ -69,8 +69,8 @@ position_y = 1
 # height = 88
 
 # it can be set to face_up, face_down, none
-visibility = 'face_down'
-border = 'none'
+visibility = "face_down"
+border = 'line'
 can_be_inspect = false
 
 
@@ -80,6 +80,7 @@ position_x = 2
 position_y = 2
 
 visibility = "face_up"
+border = 'line'
 can_be_inspect = true
 
 
