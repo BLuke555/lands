@@ -20,8 +20,8 @@ Rects			= {}
 Rendering = {}
 Types			= {}
 Sprites		= {}
-Areas			= {}
-Cards			= {}
+Areas			= {} -- this contains the index of to the areas the card is in
+Cards			= {} -- this contains an arrray of indexes of the cards contained in this area
 Padding		= {}
 
 
@@ -40,14 +40,15 @@ function love.load()
 
 	-- configuring the board
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
-	-- LoadConfig('./formats/lands/config.toml')
 
 	LoadConfig('formats/lands/config.toml')
-	local library = Idx.library[1]
-	LoadArea(library, 'formats/lands/decks/deck.txt')
-	ShuffleArea(library)
-	for _=1, 5 do
-		MoveCard(Cards[library][#Cards[library]], Idx.hand[1])
+	for i=1, Game.players do
+		local library = Idx.library[i]
+		LoadArea(library, 'formats/lands/decks/deck.txt')
+		ShuffleArea(library)
+		for _=1, 5 do
+			MoveCard(Cards[library][#Cards[library]], Idx.hand[i])
+		end
 	end
 
 	--TODO: rember to use paper scissor rock who's the first player
@@ -64,6 +65,7 @@ function love.update(dt)
 			for _, entity in ipairs(Entities) do
 				if IsMouseOver(Rects[entity]) then
 					-- Game.selected_entity = entity
+					print(Names[entity])
 					break
 				end
 			end
@@ -87,12 +89,15 @@ function love.draw()
 		local name = Names[entity]
 
 		if Rects[entity] ~= nil then
-			if Rendering[entity] == 'face_up' then
+			if Types[entity] == 'deck' and #Cards[entity] == 0 then
+				love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
+
+			elseif Rendering[entity] == 'face_up' then
 				if Types[entity] == 'card' then
 					love.graphics.draw(Sprites[name], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
 				end
 
-			elseif Rendering[entity] == 'face_down' then
+			elseif Rendering[entity] == 'face_down' and Types[entity] ~= 'hand' then
 				love.graphics.draw(Sprites['back'], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
 
 			elseif Rendering[entity] == 'line' then
