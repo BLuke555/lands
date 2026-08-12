@@ -2,6 +2,7 @@ require('core.core')
 require('core.config')
 require('core.deck')
 require('core.ecs')
+require('core.matchstate')
 
 
 -- this struct contains all the general behaviour/data of
@@ -44,79 +45,36 @@ function love.load()
 
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
 
+	matchstate.init()
+
 	LoadConfig('formats/lands/config.toml')
+
+	--loading the deck and drawing the initial hand
 	for i=1, Game.players do
 		local library = Idx.library[i]
+		local hand = Idx.hand[i]
+
 		LoadArea(library, 'formats/lands/decks/deck.txt')
 		ShuffleArea(library)
 		for _=1, 5 do
-			MoveCard(Cards[library][#Cards[library]], Idx.hand[i])
+			MoveCard(Cards[library][#Cards[library]], hand)
 		end
+
+		matchstate.transition('DrawPhase')
 	end
 
 	--TODO: rember to use paper scissor rock who's the first player
 	--to do that we could load some special deck and use the function to peek into
 	--said deck to chose the card and then compeer
 
-	matchstate.init()
-	
-	--loading the deck and drawing the initial hand
-	for player_id = 1, Game.players, 1 do
-		local library = Board.library[player_id]
-		local hand = Board.hand[player_id]
-
-		LoadDeck(library.cards, 'formats/lands/decks/deck.txt')
-		ShuffleDeck(library.cards)
-		MoveCards(library.cards, hand.cards, 1, #hand.cards, Game.initial_hand_size)
-	end
-
-	matchstate.transition("DrawPhase")
 end
 
 
 function love.update(dt)
-	if love.mouse.isDown(1) then
-		if not Game.mouse_pressed then
-			Game.mouse_pressed = true
-			
-			print(selectedCard)
-			if selectedCard > 0 then
-				MoveCards(Board['hand'][1].cards, Board['battlefield'][1].cards, selectedCard, #Board['battlefield'][1].cards, 1)
-				
-				matchstate.transition("DrawPhase")
-			end
-		end
-
-	else
-		Game.selected_entity = nil
-		Game.mouse_pressed = false
-	end
+	matchstate.update(dt)
 end
 
 
 function love.draw()
-	love.graphics.clear()
-
-	for _, entity in ipairs(Entities) do
-		local rect = Rects[entity]
-		local name = Names[entity]
-
-		if rect ~= nil then
-			if Types[entity] == 'deck' and #Cards[entity] == 0 then
-				love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
-
-			elseif Rendering[entity] == 'face_up' then
-				if Types[entity] == 'card' then
-					love.graphics.draw(Sprites[name], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
-				end
-
-			elseif Rendering[entity] == 'face_down' and Types[entity] ~= 'hand' then
-				love.graphics.draw(Sprites['back'], rect.x, rect.y, rect.rotation, 1, 1, rect.origin_x, rect.origin_y)
-
-			elseif Rendering[entity] == 'line' then
-				love.graphics.rectangle('line', rect.x, rect.y, rect.width, rect.height)
-			end
-		end
-
-	end
+	matchstate.draw()
 end
