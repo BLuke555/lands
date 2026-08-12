@@ -11,10 +11,10 @@ should_draw_first_turn = false
 
 # ==== GENERAL GRAPHIC SETTINGS ===========
 
-padding_screen_x = 25
-padding_screen_y = 25
+padding_screen_x = 50
+padding_screen_y = 50
 padding_x = 10
-padding_y = 10
+padding_y = 20
 
 
 
@@ -50,7 +50,7 @@ type = "hand"
 positon = "bottom"
 size = 64
 
-padding = 20
+padding = 2
 
 max_size = -1 
 # set to -1 to indicate that there is no max hand size

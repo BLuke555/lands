@@ -1,0 +1,26 @@
+[white]
+	type = 'land'
+	subtype = 'plain'
+	effect = ['this enter battlefield_player from hand_player: DRAW 1']
+
+[blue]
+	type = 'land'
+	subtype = 'island'
+	effect = ['this enter battlefield_player from hand_player: LOOk 1',
+						'flash: NEGATE']
+
+[black]
+	type = 'land'
+	subtype = 'swamp'
+# TODO: implement effect remember to use pipes to keep shit modular
+	effect = ['this enter battlefield_player from hand_player: ']
+
+[red]
+	type = 'land'
+	subtype = 'swamp'
+	effect = ['this enter battlefield_player from hand_player: DESTROY 1']
+
+[green]
+	type = 'land'
+	subtype = 'forset'
+	effect = ['this enter battlefield_player from hand_player: REVIVE 1']
