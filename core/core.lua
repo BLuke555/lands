@@ -20,10 +20,12 @@ function GetEntitiesUnderMouseCursor()
 	local entities = {}
 
 	for _, entity in ipairs(Entities) do
-		if Rects[entity] ~= nil and IsMouseOver(entity) then
+		if Rects[entity] ~= nil and IsMouseOver(Rects[entity]) then
+			print(entity)
 			table.insert(entities, entity)
 		end
 	end
 
+	print(#entities)
 	return entities
 end

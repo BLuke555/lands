@@ -5,7 +5,7 @@ function UpdateArea(entity)
 		if Rects[card] == nil then
 			Rects[card] = {}
 			Rects[card].width = Sprites[Names[card]]:getWidth()
-			Rects[card].heigth = Sprites[Names[card]]:getHeight()
+			Rects[card].height = Sprites[Names[card]]:getHeight()
 			Rects[card].origin_x = Sprites[Names[card]]:getWidth()/2
 			Rects[card].origin_y = Sprites[Names[card]]:getHeight()/2
 			Rendering[card] = Rendering[entity]
