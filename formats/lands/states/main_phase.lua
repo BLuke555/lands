@@ -12,16 +12,10 @@ return {
 			if not Game.mouse_pressed then
 				Game.mouse_pressed = true
 
-				for _, entity in ipairs(Entities) do
-					--TEST ZONE --
-					--print(Rects[entity])
-					if Rects[entity] ~= nil then
+				for _, entity in ipairs(Entities) do					
+					if Rects[entity] ~= nil and Types[entity] == "card" and IsMouseOver(Rects[entity]) then
 						print(Types[entity])
-						print(Rects[entity].width)
-						print(Rects[entity].height)
-					end
-					--TEST ZONE END
-					if Rects[entity] ~= nil and IsMouseOver(Rects[entity]) then
+						print(Areas[entity])
 						MoveCard(entity, Idx.battlefield[1])
 						State.transition("DrawPhase")
 						break
