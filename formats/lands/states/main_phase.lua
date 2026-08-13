@@ -3,6 +3,11 @@ return {
 	end,
 
 	update = function ()
+		if Game.turn_player == 2 then -- test: opponent passes the turn
+			print("Opponent passed the turn.")
+			State.transition("DrawPhase")
+		end
+		
 		if love.mouse.isDown(1) then
 			if not Game.mouse_pressed then
 				Game.mouse_pressed = true
@@ -10,7 +15,7 @@ return {
 				for _, entity in ipairs(Entities) do
 					if Rects[entity] ~= nil and IsMouseOver(Rects[entity]) then
 						MoveCard(entity, Idx.battlefield[1])
-						matchstate.transition("DrawPhase")
+						State.transition("DrawPhase")
 						break
 					end
 				end

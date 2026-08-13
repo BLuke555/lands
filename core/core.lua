@@ -16,7 +16,6 @@ function IsMouseOver(rect)
 					y > rect.y - origin_y and y < rect.y + rect.height - origin_y)
 end
 
-
 function GetEntitiesUnderMouseCursor()
 	local entities = {}
 
