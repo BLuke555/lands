@@ -11,10 +11,10 @@ should_draw_first_turn = false
 
 # ==== GENERAL GRAPHIC SETTINGS ===========
 
-padding_screen_x = 25
-padding_screen_y = 25
+padding_screen_x = 50
+padding_screen_y = 50
 padding_x = 10
-padding_y = 10
+padding_y = 20
 
 
 
@@ -50,13 +50,13 @@ type = "hand"
 position = "bottom"
 size = 64
 
-padding = 20
+padding = 2
 
 max_size = -1 
 # set to -1 to indicate that there is no max hand size
 
-player_visibility = true
-opponent_visibility = false
+player_visibility = 'face_up'
+opponent_visibility = 'face_down'
 # tell the game which hand must be shown
 
 
@@ -69,8 +69,8 @@ position_y = 1
 # height = 88
 
 # it can be set to face_up, face_down, none
-visibility = "face_down"
-border = 'line'
+visibility = 'face_down'
+border = 'none'
 can_be_inspect = false
 
 
@@ -80,7 +80,6 @@ position_x = 2
 position_y = 2
 
 visibility = "face_up"
-border = 'line'
 can_be_inspect = true
 
 
@@ -91,7 +90,7 @@ position_y = 0
 width = 1
 height = 1
 
-padding = 30
+padding = 15
 
 border = 'line'
 # tells the game at what point similar cards must

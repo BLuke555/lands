@@ -1,0 +1,39 @@
+[white]
+	id = '01'
+	set = 'LND'
+	type = 'land'
+	subtype = 'plain'
+	effect = ['this enter battlefield_player from hand_player: DRAW 1']
+
+[blue]
+	id = '02'
+	set = 'LND'
+	type = 'land'
+	subtype = 'island'
+	effect = ['this enter battlefield_player from hand_player: LOOk 1',
+						'flash: NEGATE']
+
+[black]
+	id = '03'
+	set = 'LND'
+	type = 'land'
+	subtype = 'swamp'
+# TODO: implement effect remember to use pipes to keep shit modular
+	effect = ['this enter battlefield_player from hand_player: CHOOSE 3 opponent hand | CHOOSE 1 player | DISCARD 1']
+
+[red]
+	id = '04'
+	set = 'LND'
+	type = 'land'
+	subtype = 'swamp'
+	effect = ['this enter battlefield_player from hand_player: DESTROY 1']
+
+[green]
+	id = '05'
+	set = 'LND'
+	type = 'land'
+	subtype = 'forset'
+	effect = ['this enter battlefield_player from hand_player: REVIVE 1']
+
+	# NOTE: add possibility to script in lua inside the toml
+	# effect = ['this enter battlefield_player from hand_player: function() end']
