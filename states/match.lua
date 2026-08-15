@@ -2,18 +2,18 @@ return {
 	enter = function ()
 		Game.turnPlayer = 2 -- 2 (opponent) for test
 		Game.turnNumber = 1
-		Game.currentPhase = 1
 		Game.currentState = "DrawPhase" -- name of the current state
 
-		matchstate.DrawPhase = DrawPhase
-		matchstate.MainPhase = MainPhase
+		--State.DrawPhase = DrawPhase
+		--State.MainPhase = MainPhase
 
-		Game.currentState.enter()
+		State.transition(Game.currentState)
 	end,
 
 	update = function (dt)
-		Game.currentState.update(dt)
-		Rects[entity].x += dt
+		--State.Match[Game.currentState].update(dt)
+		
+		--Rects[entity].x = Rects[entity].x + dt --Interpolation (not implemented yet)
 	end,
 
 	exit = function ()

@@ -2,15 +2,16 @@ require('core.core')
 require('core.config')
 require('core.deck')
 require('core.ecs')
-require('core.matchstate')
+
 
 
 -- this struct contains all the general behaviour/data of
 -- the entire game or match, like the life points, the turn
 -- phases, the number of players...
-Game		= {}
-Sprites	= {}
+Game			= {}
+Sprites			= {}
 
+State			= require('core.matchstate')
 -- those are the components of most of the game entities
 -- if you do not want an entity to render you just do not
 -- implement its rect component, do not use the rendering
@@ -19,11 +20,11 @@ Sprites	= {}
 -- the card/area
 Names			= {}
 Rects			= {}
-Rendering = {}
+Rendering		= {}
 Types			= {}
 Areas			= {} -- this contains the index of to the areas the card is in
 Cards			= {} -- this contains an arrray of indexes of the cards contained in this area
-Padding		= {}
+Padding			= {}
 
 
 -- To get the index of the entity rappresenting the area 
@@ -31,7 +32,7 @@ Padding		= {}
 -- cards are array of the indexes of the entities constained
 -- in that area, the cards in the decks have just no rect
 -- component
-Idx		= {}
+Idx				= {}
 
 function love.load()
 	math.randomseed( os.time() )
@@ -45,10 +46,9 @@ function love.load()
 
 	Sprites['back'] = love.graphics.newImage('formats/lands/cards/back.png')
 
-	matchstate.init()
-
 	LoadConfig('formats/lands/config.toml')
 
+	State.Match.enter()
 	--loading the deck and drawing the initial hand
 	for i=1, Game.players do
 		local library = Idx.library[i]
@@ -60,7 +60,7 @@ function love.load()
 			MoveCard(Cards[library][#Cards[library]], hand)
 		end
 
-		matchstate.transition('DrawPhase')
+		print(tostring(Game.turnNumber).." "..tostring(Game.turnPlayer))
 	end
 
 	--TODO: rember to use paper scissor rock who's the first player
@@ -71,10 +71,13 @@ end
 
 
 function love.update(dt)
-	matchstate.update(dt)
+	State.update(dt)
 end
 
+function love.mousepressed(x, y, button, istouch, pressed)
+	State.mousepressed(x, y, button, istouch, pressed)
+end
 
 function love.draw()
-	matchstate.draw()
+	State.Match.draw()
 end

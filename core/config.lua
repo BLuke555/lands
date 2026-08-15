@@ -136,7 +136,7 @@ local function configBoard(player_id, config)
 		for _, area in pairs(value) do
 			local entity = area.idx
 
-			print('[CONFIG] configuring palyer ' .. player_id .. ' position X: ' .. x_position ..', Y: ' .. y_position)
+			print('[CONFIG] configuring player ' .. player_id .. ' position X: ' .. x_position ..', Y: ' .. y_position)
 			print('[CONFIG] type: ' .. Types[entity])
 
 			if Types[entity] == 'field' then
@@ -190,7 +190,7 @@ function LoadConfig(config_file)
 		area_position = {}
 
 		for key, value in pairs(config.area) do
-			print('[CONFIG] parsing configuration for palyer ' .. player_id .. ' area ' .. key)
+			print('[CONFIG] parsing configuration for player ' .. player_id .. ' area ' .. key)
 			local entity = NewEntity()
 
 			if not Idx[key] then Idx[key] = {} end

@@ -356,9 +356,13 @@ function MoveCard(card_entity, to_entity)
 	end
 
 	table.insert(Cards[to_entity], card_entity)
+	--print(to_entity)
 	Areas[card_entity] = to_entity
+	print(Areas[card_entity])
 
 	if Types[from_entity] ~= 'deck' then UpdateArea(from_entity) end
 	if Types[to_entity] ~= 'deck' then UpdateArea(to_entity) end
+	
+	print(Areas[card_entity])
 end
 

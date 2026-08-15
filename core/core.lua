@@ -17,15 +17,16 @@ function IsMouseOver(rect)
 					y > rect.y - origin_y and y < rect.y + rect.height - origin_y)
 end
 
-
 function GetEntitiesUnderMouseCursor()
 	local entities = {}
 
 	for _, entity in ipairs(Entities) do
 		if Rects[entity] ~= nil and IsMouseOver(Rects[entity]) then
+			print(entity)
 			table.insert(entities, entity)
 		end
 	end
 
+	print(#entities)
 	return entities
 end
