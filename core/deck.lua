@@ -5,13 +5,13 @@ function UpdateArea(entity)
 		if Rects[card] == nil then
 			Rects[card] = {}
 			Rects[card].width = Sprites[Names[card]]:getWidth()
-			Rects[card].heigth = Sprites[Names[card]]:getHeight()
+			Rects[card].height = Sprites[Names[card]]:getHeight()
 			Rects[card].origin_x = Sprites[Names[card]]:getWidth()/2
 			Rects[card].origin_y = Sprites[Names[card]]:getHeight()/2
 			Rendering[card] = Rendering[entity]
 		end
 
-		Rects[card].y = Rects[entity].y
+		Rects[card].y = Rects[entity].y + Rects[entity].height/2
 		Rects[card].x = Rects[entity].x + i*(Padding[entity] + Sprites[Names[card]]:getWidth())
 	end
 end
@@ -356,7 +356,7 @@ function MoveCard(card_entity, to_entity)
 	end
 
 	table.insert(Cards[to_entity], card_entity)
-	Areas[card_entity] = Idx[to_entity]
+	Areas[card_entity] = to_entity
 
 	if Types[from_entity] ~= 'deck' then UpdateArea(from_entity) end
 	if Types[to_entity] ~= 'deck' then UpdateArea(to_entity) end
