@@ -1,3 +1,33 @@
+function TrimLeadingChar(str, char)
+	local pos = 1
+
+	while string.sub(str, pos, pos) == char do
+		pos = pos + 1
+	end
+	
+	return string.sub(str, pos, string.len(str))
+end
+
+
+function TrimTrailingChar(str, char)
+	local pos = string.len(str)
+
+	while string.sub(str, pos, pos) == char do
+		pos = pos - 1
+	end
+	
+	return string.sub(str, 1, pos)
+end
+
+
+function TrimEdgeChar(str, char)
+	str = TrimLeadingChar(str, char)
+	str = TrimTrailingChar(str, char)
+
+	return str
+end
+
+
 function Switch(param, case_table)
     local case = case_table[param]
     if case then return case() end

@@ -1,9 +1,9 @@
 require 'core.core'
 require 'core.config'
 require 'core.deck'
+require 'core.cards'
 require 'core.ecs'
 require 'core.events'
-
 
 
 -- this struct contains all the general behaviour/data of
@@ -11,7 +11,6 @@ require 'core.events'
 -- phases, the number of players...
 Game			= {}
 Sprites		= {}
-
 State			= require 'core.matchstate'
 
 
@@ -23,11 +22,12 @@ State			= require 'core.matchstate'
 -- the card/area
 Names			= {}
 Rects			= {}
-Rendering		= {}
+Rendering	= {}
 Types			= {}
 Areas			= {} -- this contains the index of to the areas the card is in
 Cards			= {} -- this contains an arrray of indexes of the cards contained in this area
-Padding			= {}
+Padding		= {}
+Owner			= {}
 
 
 -- To get the index of the entity rappresenting the area 
