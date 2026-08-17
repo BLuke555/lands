@@ -1,4 +1,4 @@
-local toml = require('modules.tinytoml.tinytoml')
+local toml = require 'modules.tinytoml.tinytoml'
 
 
 local max_field_size_x = 0

@@ -1,7 +1,8 @@
-require('core.core')
-require('core.config')
-require('core.deck')
-require('core.ecs')
+require 'core.core'
+require 'core.config'
+require 'core.deck'
+require 'core.ecs'
+require 'core.events'
 
 
 
@@ -9,9 +10,11 @@ require('core.ecs')
 -- the entire game or match, like the life points, the turn
 -- phases, the number of players...
 Game			= {}
-Sprites			= {}
+Sprites		= {}
 
-State			= require('core.matchstate')
+State			= require 'core.matchstate'
+
+
 -- those are the components of most of the game entities
 -- if you do not want an entity to render you just do not
 -- implement its rect component, do not use the rendering
